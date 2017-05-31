@@ -1,0 +1,12 @@
+target = dene
+skin = native
+
+TASK_OBJ = dene.o
+XENO_CONFIG = /usr/xenomai/bin/xeno-config
+CC := g++ #$(shell $(XENO_CONFIG) --cc) 
+CFLAGS := $(shell $(XENO_CONFIG) --skin=$(skin) --cflags)
+LDFLAGS := $(shell $(XENO_CONFIG) --skin=$(skin) --ldflags)
+$(target): $(target).cpp #$(TASK_OBJ)
+	$(CC) -o $@ $< $(CFLAGS) $(LDFLAGS) -lpigpio -lrt
+clean:
+	@rm $(target)
